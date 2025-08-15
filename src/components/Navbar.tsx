@@ -35,7 +35,7 @@ async function Navbar() {
 
 
                         <Button variant={"ghost"} className='flex items-center gap-2' asChild>
-                            <Link href={'/gpus'}>
+                            <Link href={'/parts'}>
                                 <Gpu className='w-4 h-4' />
                                 <span className='hidden lg:inline'>{`GPU's`}</span>
                             </Link>
