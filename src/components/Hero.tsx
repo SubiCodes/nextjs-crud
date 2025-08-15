@@ -14,7 +14,7 @@ export default function HeaderSection() {
                 All about <span>PC PARTS</span>
               </h1>
               <p className="mt-6 text-lg font-normal sm:text-xl">
-                Join other PC Parts enthusiast, post and view information abbout components to help grow the community.
+                Join other PC Parts enthusiast, post and view information about components to help grow the community.
               </p>
               <div className="mt-8 sm:mt-10">
                 <Button variant={'default'} asChild>
