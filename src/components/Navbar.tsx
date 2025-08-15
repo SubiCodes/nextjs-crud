@@ -5,6 +5,7 @@ import { Gpu, Home, LogIn, LogOut } from 'lucide-react'
 import { ModeToggle } from './ModeToggle'
 import { stackServerApp } from '@/stack'
 import { getUserDetails } from '@/actions/user.actions'
+import { UserButton } from '@stackframe/stack'
 
 async function Navbar() {
 
@@ -51,20 +52,22 @@ async function Navbar() {
 
                         {/* Sign In / Sign Out Button from StackAuth and Neon */}
                         {!user ? (
-                            <Button variant={"ghost"} className='flex items-center gap-2' asChild>
+                            <Button variant={"default"} className='flex items-center gap-2' asChild>
                                 <Link href={app.signIn}>
                                     <LogIn className='w-4 h-4' />
                                     <span className='hidden lg:inline'>{`Sign In`}</span>
                                 </Link>
                             </Button>
                         ) : (
-                            <Button variant={"ghost"} className='flex items-center gap-2' asChild>
+                            <Button variant={"default"} className='flex items-center gap-2' asChild>
                                 <Link href={app.signOut}>
                                     <LogOut className='w-4 h-4' />
                                     <span className='hidden lg:inline'>{`Sign Out`}</span>
                                 </Link>
                             </Button>
                         )}
+
+                        <UserButton/>
 
                     </div>
 
