@@ -3,6 +3,8 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <h1 className="text-red-500">HELLO WORLD</h1>
+    <div className="flex w-screen h-screen items-center justify-center">
+      
+    </div>
   );
 }
