@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
-import { Gpu, Home, LogIn } from 'lucide-react'
+import { Gpu, Home, LogIn, LogOut } from 'lucide-react'
 import { ModeToggle } from './ModeToggle'
 import { stackServerApp } from '@/stack'
+import { getUserDetails } from '@/actions/user.actions'
 
 async function Navbar() {
 
     const user = await stackServerApp.getUser();
     const app = stackServerApp.urls;
+    const userProfile = await getUserDetails(user?.id);
 
     return (
         <nav className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>
@@ -25,6 +27,12 @@ async function Navbar() {
 
                     {/* Navbar Component */}
                     <div className='hidden md:flex items-center space-x-4'>
+
+                        {userProfile?.name && <span className="text-[14px] text-gray-600 dark:text-gray-300">
+                            {`Hello, ${userProfile?.name.split(' ')[0]}`}
+                        </span>}
+
+
                         <Button variant={"ghost"} className='flex items-center gap-2' asChild>
                             <Link href={'/gpus'}>
                                 <Gpu className='w-4 h-4' />
@@ -39,15 +47,24 @@ async function Navbar() {
                             </Link>
                         </Button>
 
-                        <ModeToggle/>
+                        <ModeToggle />
 
-                        {/* Sign In Button from StackAuth */}
-                        <Button variant={"ghost"} className='flex items-center gap-2' asChild>
-                            <Link href={app.signIn}>
-                                <LogIn className='w-4 h-4' />
-                                <span className='hidden lg:inline'>{`Sign In`}</span>
-                            </Link>
-                        </Button>
+                        {/* Sign In / Sign Out Button from StackAuth and Neon */}
+                        {!user ? (
+                            <Button variant={"ghost"} className='flex items-center gap-2' asChild>
+                                <Link href={app.signIn}>
+                                    <LogIn className='w-4 h-4' />
+                                    <span className='hidden lg:inline'>{`Sign In`}</span>
+                                </Link>
+                            </Button>
+                        ) : (
+                            <Button variant={"ghost"} className='flex items-center gap-2' asChild>
+                                <Link href={app.signOut}>
+                                    <LogOut className='w-4 h-4' />
+                                    <span className='hidden lg:inline'>{`Sign Out`}</span>
+                                </Link>
+                            </Button>
+                        )}
 
                     </div>
 
