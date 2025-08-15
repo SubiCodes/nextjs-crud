@@ -1,4 +1,7 @@
+import Link from 'next/link'
 import React from 'react'
+import { Button } from './ui/button'
+import { Gpu, Home } from 'lucide-react'
 
 function Navbar() {
     return (
