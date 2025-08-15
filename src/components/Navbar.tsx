@@ -29,11 +29,6 @@ async function Navbar() {
                     {/* Navbar Component */}
                     <div className='hidden md:flex items-center space-x-4'>
 
-                        {userProfile?.name && <span className="text-[14px] text-gray-600 dark:text-gray-300">
-                            {`Hello, ${userProfile?.name.split(' ')[0]}`}
-                        </span>}
-
-
                         <Button variant={"ghost"} className='flex items-center gap-2' asChild>
                             <Link href={'/parts'}>
                                 <Gpu className='w-4 h-4' />
