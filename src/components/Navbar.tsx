@@ -22,7 +22,7 @@ async function Navbar() {
                     {/* LOGO */}
                     <div className='flex items-center'>
                         <Link href={'/'} className='text-xl font-bold text-primary font-mono tracking-wider'>
-                            🖲️GPU Haven
+                            🖲️PC Haven
                         </Link>
                     </div>
 
@@ -37,7 +37,7 @@ async function Navbar() {
                         <Button variant={"ghost"} className='flex items-center gap-2' asChild>
                             <Link href={'/parts'}>
                                 <Gpu className='w-4 h-4' />
-                                <span className='hidden lg:inline'>{`GPU's`}</span>
+                                <span className='hidden lg:inline'>{`PC Parts`}</span>
                             </Link>
                         </Button>
 
