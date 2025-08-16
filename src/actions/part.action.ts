@@ -28,6 +28,9 @@ export async function getParts(searchTerm?: string) {
 export async function getPart(itemId: string) {
     try {
         const currentUser = await getCurrentUserId();
+        if (!currentUser) {
+            return;
+        }
         const whereClause: any = {
             userId: currentUser,
             id: itemId
