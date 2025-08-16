@@ -9,7 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Search, Trash2 } from "lucide-react";
+import { Input } from "./ui/input";
 
 const invoices = [
   {
@@ -58,7 +59,11 @@ const invoices = [
 
 export default function TableDemo() {
   return (
-    <div className="rounded-2xl border shadow-sm bg-background p-4">
+    <div className="flex flex-col rounded-2xl border shadow-sm bg-background p-4">
+      <div className="relative flex items-center gap-2 py-4">
+        <Input placeholder={"Filter PC Parts"} className="pl-10"/>
+        <Search className="absolute h-4 w-4 left-3 top-1/2 transform -translate-y-1/2"/>
+      </div>
       <Table>
         <TableCaption className="text-sm text-muted-foreground">
           A list of PC Parts.
