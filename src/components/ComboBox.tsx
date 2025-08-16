@@ -45,7 +45,7 @@ export function Combobox() {
         >
           {value
             ? parts.find((part) => part.value === value)?.label
-            : "Select framework..."}
+            : "Select Category..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>

@@ -11,6 +11,7 @@ import {
 import { Button } from "./ui/button";
 import { Pencil, Search, Trash2 } from "lucide-react";
 import { Input } from "./ui/input";
+import { Combobox } from "./ComboBox";
 
 const invoices = [
   {
@@ -63,6 +64,7 @@ export default function TableDemo() {
       <div className="relative flex items-center gap-2 py-4">
         <Input placeholder={"Filter PC Parts"} className="pl-10"/>
         <Search className="absolute h-4 w-4 left-3 top-1/2 transform -translate-y-1/2"/>
+        <Combobox/>
       </div>
       <Table>
         <TableCaption className="text-sm text-muted-foreground">
