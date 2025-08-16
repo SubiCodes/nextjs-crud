@@ -21,8 +21,6 @@ export async function getUserDetails(userId: string | undefined) {
 export async function getCurrentUserId() {
   const user = await stackServerApp.getUser();
   const userId = user?.id;
-
-  if (!userId) return;
-
+  if (!userId) return null;
   return userId;
 }

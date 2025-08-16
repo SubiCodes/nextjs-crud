@@ -19,9 +19,9 @@ export async function getParts(searchTerm: String ) {
             where: whereClause,
         });
 
-        revalidatePath("/");
-        return { success: true, data: userParts };
+        return { success: true, userParts };
     } catch (error) {
+        console.error("Actual error:", error)
         throw new Error("Failed to fetch user parts.")
     }
 }
