@@ -19,6 +19,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
+interface ComboboxProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
 const parts = [
   {value: 'cpu',label: 'CPU'},
   {value: 'cpu cooler',label: 'CPU Cooler'},
@@ -30,9 +35,8 @@ const parts = [
   {value: 'cases',label: 'Cases'},
 ]
 
-export function Combobox() {
+export function Combobox({ value, onChange }: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,7 +64,7 @@ export function Combobox() {
                   key={part.value}
                   value={part.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    onChange(currentValue)
                     setOpen(false)
                   }}
                 >
