@@ -25,6 +25,7 @@ interface ComboboxProps {
 }
 
 const parts = [
+  {value: 'all',label: 'All'},
   {value: 'cpu',label: 'CPU'},
   {value: 'cpu cooler',label: 'CPU Cooler'},
   {value: 'motherboard',label: 'Motherboard'},

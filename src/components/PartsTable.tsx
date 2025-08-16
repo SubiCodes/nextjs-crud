@@ -63,7 +63,7 @@ const invoices = [
 
 export default function TableDemo() {
 
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('all');
 
   return (
     <div className="flex flex-col rounded-2xl border shadow-sm bg-background p-4">
