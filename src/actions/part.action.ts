@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { getCurrentUserId } from "./user.actions";
-import { revalidatePath } from "next/cache";
 
-export async function getParts(searchTerm: String ) {
+export async function getParts(searchTerm?: string) {
     try {
         const currentUser = await getCurrentUserId();
         const whereClause: any = {
@@ -15,7 +14,7 @@ export async function getParts(searchTerm: String ) {
             };
         }
 
-        const userParts = await prisma.part.findMany({
+        const userParts = await prisma.parts.findMany({
             where: whereClause,
         });
 

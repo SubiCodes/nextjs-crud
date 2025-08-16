@@ -15,14 +15,13 @@ import { Pencil, Search, Trash2 } from "lucide-react";
 import { Input } from "./ui/input";
 import { Combobox } from "./ComboBox";
 import { useState } from "react";
-import Parts from "@/app/parts/page";
 import { getParts } from "@/actions/part.action";
-import { Part } from "@/generated/prisma";
+import { Parts as PartModel } from "@/generated/prisma";
 
-type Parts = Awaited<ReturnType<typeof getParts>>;
+type GetPartsResult  = Awaited<ReturnType<typeof getParts>>;
 
 interface PartsTableProps {
-  parts: Parts
+  parts: GetPartsResult 
 }
 
 export default function TableDemo({ parts }: PartsTableProps) {
@@ -30,7 +29,7 @@ export default function TableDemo({ parts }: PartsTableProps) {
   const [category, setCategory] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const filteredParts = parts?.userParts?.filter((part: Part) =>
+  const filteredParts = parts?.userParts?.filter((part: PartModel) =>
     part.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (category === "" || part.type === category));
 
@@ -54,10 +53,10 @@ export default function TableDemo({ parts }: PartsTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredParts?.map((part: Part) => (
+          {filteredParts?.map((part: PartModel) => (
             <TableRow key={part.id} className="hover:bg-muted/40 transition-colors">
               <TableCell className="font-medium">{part.name}</TableCell>
-              <TableCell className="text-center">{part.type}</TableCell>
+              <TableCell className="text-center">{part.type.toLocaleUpperCase()}</TableCell>
               <TableCell className="text-right">${part.amount}</TableCell>
               <TableCell className="flex justify-end gap-2">
                 <Button size="sm" variant="outline" className="flex items-center gap-1 cursor-pointer">
