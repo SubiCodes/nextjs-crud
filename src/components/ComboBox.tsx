@@ -25,7 +25,7 @@ interface ComboboxProps {
 }
 
 const parts = [
-  {value: 'all',label: 'All'},
+  {value: '',label: 'All Parts'},
   {value: 'cpu',label: 'CPU'},
   {value: 'cpu cooler',label: 'CPU Cooler'},
   {value: 'motherboard',label: 'Motherboard'},
@@ -56,9 +56,9 @@ export function Combobox({ value, onChange }: ComboboxProps) {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
+          <CommandInput placeholder="Search category..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No part category found.</CommandEmpty>
             <CommandGroup>
               {parts.map((part) => (
                 <CommandItem
