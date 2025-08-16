@@ -14,7 +14,7 @@ export default function AddDialog() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
+        <Button variant="outline">Add PC Part</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
