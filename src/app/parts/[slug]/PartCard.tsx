@@ -1,60 +1,65 @@
-
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
-
-import { Badge } from "../../../components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { getPart } from "@/actions/part.action";
-
 
 type Part = Awaited<ReturnType<typeof getPart>>;
 
 interface PartCardProps {
-  part: Part;
+    part: Part;
 }
 
-export default function PlantCard({ part }: PartCardProps) {
+export default function PartCard({ part }: PartCardProps) {
+    if (!part?.userPart) {
+        return (
+            <Card className="p-6 text-center">
+                <CardDescription>No description for this item yet.</CardDescription>
+            </Card>
+        );
+    }
 
-    
-  if (!part) {
-    return <div>Plant data is not available.</div>;
-  }
+    const { imageUrl, name, amount, type, description } = part.userPart;
 
+    return (
+        <Card className="max-w-4xl mx-auto overflow-hidden shadow-lg px-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Left: Image */}
+                {imageUrl ? (
+                    <div className="w-full h-64 md:h-auto">
+                        <img
+                            src={imageUrl}
+                            alt={name}
+                            className="w-full h-full object-cover rounded-lg"
+                        />
+                    </div>
+                ) : (
+                    <div className="flex items-center justify-center bg-muted h-64 rounded-l-lg">
+                        <span className="text-sm text-muted-foreground">No image</span>
+                    </div>
+                )}
 
-  return (
-    <Card className="max-w">
-      <div className="flex flex-row">
-        <div className="basis-2/4">
-          <CardHeader>
-          {part?.userPart?.imageUrl && (
-            <div className="rounded-lg overflow-hidden">
-              <img
-                src={part?.userPart?.imageUrl}
-                alt="Post content"
-                className="w-full h-auto object-cover"
-              />
+                {/* Right: Details */}
+                <div className="flex flex-col p-6">
+                    <CardHeader className="p-0">
+                        <CardTitle className="text-3xl font-bold">{name}</CardTitle>
+                        <p className="text-xl font-semibold text-primary">${amount}</p>
+                    </CardHeader>
+
+                    <CardContent className="p-0 mt-4 space-y-3">
+                        <CardDescription className="flex flex-1 text-muted-foreground">
+                            {description || "No description provided."}
+                        </CardDescription>
+                        <Badge variant="secondary" className="uppercase tracking-wide">
+                            {type}
+                        </Badge>
+                    </CardContent>
+                </div>
             </div>
-          )}
-
-           
-          </CardHeader>
-        </div>
-        <div className="basis-2/4 flex flex-col justify-between">
-          <CardContent className="mt-8 space-y-3">
-            <CardTitle className="text-5xl font-bold">{part?.userPart?.name}</CardTitle>
-            <CardTitle className="text-3xl font-bold">${part?.userPart?.amount}</CardTitle>
-            <Badge>{part?.userPart?.type}</Badge>
-            <CardDescription className="text-white">
-              {part?.userPart?.description}
-            </CardDescription>
-          </CardContent>
-        </div>
-      </div>
-    </Card>
-  );
+        </Card>
+    );
 }

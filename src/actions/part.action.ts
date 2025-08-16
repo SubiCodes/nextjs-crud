@@ -35,7 +35,6 @@ export async function getPart(itemId: string) {
         const userPart = await prisma.parts.findUnique({
             where: whereClause
         })
-
         return { success: true, userPart };
     } catch (error) {
         console.error("Actual error:", error)
