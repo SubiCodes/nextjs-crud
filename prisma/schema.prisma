@@ -14,11 +14,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Part{
+model Parts{
   id String @id @default(cuid())
   name String
   description String?
   type String
+  brand String
   amount Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
