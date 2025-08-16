@@ -19,27 +19,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
+const parts = [
+  {value: 'cpu',label: 'CPU'},
+  {value: 'cpu cooler',label: 'CPU Cooler'},
+  {value: 'motherboard',label: 'Motherboard'},
+  {value: 'memory',label: 'Motherboard'},
+  {value: 'storage',label: 'Storage'},
+  {value: 'gpu',label: 'GPU'},
+  {value: 'power supply',label: 'Power Supply'},
+  {value: 'cases',label: 'Cases'},
 ]
 
 export function ComboboxDemo() {
@@ -56,7 +44,7 @@ export function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? parts.find((part) => part.value === value)?.label
             : "Select framework..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
@@ -67,20 +55,20 @@ export function ComboboxDemo() {
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {parts.map((part) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
+                  key={part.value}
+                  value={part.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {part.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === part.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
