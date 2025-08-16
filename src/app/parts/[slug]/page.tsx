@@ -23,7 +23,6 @@ async function page({ params }: { params: { slug: string } }) {
     const user = await stackServerApp.getUser();
     const [id] = params.slug.split("--");
     if (!user) {
-        console.log(user);
         return (
             <div className='flex flex-1 min-h-screen pb-24 items-center justify-center'>
                 <SignIn />

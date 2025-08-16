@@ -11,23 +11,33 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "./ui/button";
-import { Pencil, Search, Trash2 } from "lucide-react";
+import { Eye, Pencil, Search, Trash2 } from "lucide-react";
 import { Input } from "./ui/input";
 import { Combobox } from "./ComboBox";
 import { useState } from "react";
 import { getParts } from "@/actions/part.action";
 import { Parts as PartModel } from "@/generated/prisma";
 import { useRouter } from "next/navigation";
+import { getCurrentUserId } from "@/actions/user.actions";
+import { SignIn } from "@stackframe/stack";
 
 type GetPartsResult = Awaited<ReturnType<typeof getParts>>;
 
 interface PartsTableProps {
   parts: GetPartsResult
+  user: any
 }
 
-export default function TableDemo({ parts }: PartsTableProps) {
-
+export default function TableDemo({ parts, user }: PartsTableProps) {
   const router = useRouter();
+
+  if (!user) {
+    return (
+      <div className='flex flex-1 min-h-screen pb-24 items-center justify-center'>
+        <SignIn />
+      </div>
+    )
+  }
 
   const [category, setCategory] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -67,14 +77,24 @@ export default function TableDemo({ parts }: PartsTableProps) {
                 <TableCell className="text-center">{part.type.toLocaleUpperCase()}</TableCell>
                 <TableCell className="text-right">${part.amount}</TableCell>
                 <TableCell className="flex justify-end gap-2">
-                  <Button size="sm" variant="outline" className="flex items-center gap-1 cursor-pointer">
-                    <Pencil className="w-4 h-4" />
-                    Edit
-                  </Button>
-                  <Button size="sm" variant="destructive" className="flex items-center gap-1 cursor-pointer">
-                    <Trash2 className="w-4 h-4" />
-                    Delete
-                  </Button>
+                  {user === part.userId ? (
+                    <>
+                      <Button size="sm" variant="outline" className="flex items-center gap-1 cursor-pointer">
+                        <Pencil className="w-4 h-4" />
+                        Edit
+                      </Button>
+                      <Button size="sm" variant="destructive" className="flex items-center gap-1 cursor-pointer">
+                        <Trash2 className="w-4 h-4" />
+                        Delete
+                      </Button>
+                    </>
+                  ) : (
+                    <Button size="sm" variant="destructive" className="flex items-center gap-1 cursor-pointer">
+                      <Eye className="w-4 h-4" />
+                      View
+                    </Button>
+                  )}
+
                 </TableCell>
               </TableRow>
             )

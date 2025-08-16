@@ -4,6 +4,9 @@ import { getCurrentUserId } from "./user.actions";
 export async function getParts(searchTerm?: string) {
     try {
         const currentUser = await getCurrentUserId();
+        if (!currentUser) {
+            return;
+        }
         const whereClause: any = {
             userId: currentUser
         }
