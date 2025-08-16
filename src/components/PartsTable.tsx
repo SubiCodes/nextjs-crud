@@ -17,14 +17,17 @@ import { Combobox } from "./ComboBox";
 import { useState } from "react";
 import { getParts } from "@/actions/part.action";
 import { Parts as PartModel } from "@/generated/prisma";
+import { useRouter } from "next/navigation";
 
-type GetPartsResult  = Awaited<ReturnType<typeof getParts>>;
+type GetPartsResult = Awaited<ReturnType<typeof getParts>>;
 
 interface PartsTableProps {
-  parts: GetPartsResult 
+  parts: GetPartsResult
 }
 
 export default function TableDemo({ parts }: PartsTableProps) {
+
+  const router = useRouter();
 
   const [category, setCategory] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -53,23 +56,29 @@ export default function TableDemo({ parts }: PartsTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredParts?.map((part: PartModel) => (
-            <TableRow key={part.id} className="hover:bg-muted/40 transition-colors">
-              <TableCell className="font-medium">{part.name}</TableCell>
-              <TableCell className="text-center">{part.type.toLocaleUpperCase()}</TableCell>
-              <TableCell className="text-right">${part.amount}</TableCell>
-              <TableCell className="flex justify-end gap-2">
-                <Button size="sm" variant="outline" className="flex items-center gap-1 cursor-pointer">
-                  <Pencil className="w-4 h-4" />
-                  Edit
-                </Button>
-                <Button size="sm" variant="destructive" className="flex items-center gap-1 cursor-pointer">
-                  <Trash2 className="w-4 h-4" />
-                  Delete
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {filteredParts?.map((part: PartModel) => {
+            const slugifiedName = part.name.toLowerCase().replace(/\s+/g, "-");
+            const slug = `${part.id}--${slugifiedName}`;
+            const partUrl = `/parts/${slug}`;
+
+            return (
+              <TableRow key={part.id} className="hover:bg-muted/40 transition-colors" onClick={() => router.push(partUrl)}>
+                <TableCell className="font-medium">{part.name}</TableCell>
+                <TableCell className="text-center">{part.type.toLocaleUpperCase()}</TableCell>
+                <TableCell className="text-right">${part.amount}</TableCell>
+                <TableCell className="flex justify-end gap-2">
+                  <Button size="sm" variant="outline" className="flex items-center gap-1 cursor-pointer">
+                    <Pencil className="w-4 h-4" />
+                    Edit
+                  </Button>
+                  <Button size="sm" variant="destructive" className="flex items-center gap-1 cursor-pointer">
+                    <Trash2 className="w-4 h-4" />
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
         <TableFooter>
           <TableRow>
