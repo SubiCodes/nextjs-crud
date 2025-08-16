@@ -20,6 +20,7 @@ import { Parts as PartModel } from "@/generated/prisma";
 import { useRouter } from "next/navigation";
 import { getCurrentUserId } from "@/actions/user.actions";
 import { SignIn } from "@stackframe/stack";
+import { Skeleton } from "./ui/skeleton";
 
 type GetPartsResult = Awaited<ReturnType<typeof getParts>>;
 
@@ -46,12 +47,19 @@ export default function TableDemo({ parts, user }: PartsTableProps) {
     part.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (category === "" || part.type === category));
 
+  if (!parts?.userParts) {
+    return (
+      <Skeleton />
+    )
+  }
+
   return (
     <div className="flex flex-col rounded-2xl border shadow-sm bg-background p-4">
       <div className="relative flex items-center gap-2 py-4">
         <Input placeholder={"Filter PC Parts..."} className="pl-10" onChange={(e) => setSearchTerm(e.target.value)} value={searchTerm} />
         <Search className="absolute h-4 w-4 left-3 top-1/2 transform -translate-y-1/2" />
         <Combobox value={category} onChange={(val) => setCategory(val)} />
+        <Button variant={'default'}>Add Part</Button>
       </div>
       <Table>
         <TableCaption className="text-sm text-muted-foreground">
