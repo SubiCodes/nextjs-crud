@@ -24,3 +24,21 @@ export async function getParts(searchTerm?: string) {
         throw new Error("Failed to fetch user parts.")
     }
 }
+
+export async function getPart(itemId: string) {
+    try {
+        const currentUser = await getCurrentUserId();
+        const whereClause: any = {
+            userId: currentUser,
+            id: itemId
+        }
+        const userPart = await prisma.parts.findUnique({
+            where: whereClause
+        })
+
+        return { success: true, userPart };
+    } catch (error) {
+        console.error("Actual error:", error)
+        throw new Error("Failed to fetch part data.")
+    }
+} 
