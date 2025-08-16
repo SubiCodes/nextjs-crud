@@ -58,7 +58,7 @@ const invoices = [
 
 export default function TableDemo() {
   return (
-    <div className="rounded-2xl border shadow-sm bg-white p-4">
+    <div className="rounded-2xl border shadow-sm bg-background p-4">
       <Table>
         <TableCaption className="text-sm text-muted-foreground">
           A list of PC Parts.
