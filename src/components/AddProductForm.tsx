@@ -54,7 +54,11 @@ const formSchema = z.object({
     amount: z.float32().min(1),
 });
 
-export default function AddProductForm() {
+type FormProp = {
+    closeDialog: () => void
+}
+
+export default function AddProductForm({ closeDialog }: FormProp) {
 
     const userId = getCurrentUserId();
 
@@ -67,6 +71,7 @@ export default function AddProductForm() {
             console.log(values);
             const res = await createPart({...values, userId: ""});
             toast("A part has been created.");
+            closeDialog();
         } catch (error) {
             console.error("Form submission error", error);
             toast.error("Failed to submit the form. Please try again.");

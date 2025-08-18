@@ -12,13 +12,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { PcCase } from "lucide-react";
 import AddProductForm from "./AddProductForm";
+import { useState } from "react";
 export default function AddDialog() {
+  const [open, setOpen] = useState(false);
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild className="ml-auto">
         <Button variant="outline" className="flex flex-row items-center justify-center">
-            <PcCase className="w-4 h-4"/>
-            <h1>Add PC Part</h1>
+          <PcCase className="w-4 h-4" />
+          <h1>Add PC Part</h1>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -28,7 +30,7 @@ export default function AddDialog() {
             Fill in all the fields to post a new pc part.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AddProductForm/>
+        <AddProductForm closeDialog={() => setOpen(false)}/>
       </AlertDialogContent>
     </AlertDialog>
   );
