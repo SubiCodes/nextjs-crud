@@ -1,11 +1,10 @@
 "use client"
 
 import {
+    useEffect,
     useState
 } from "react"
-import {
-    toast
-} from "sonner"
+import { toast } from "sonner"
 import {
     useForm
 } from "react-hook-form"
@@ -43,30 +42,31 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select"
+import { createPart } from "@/actions/part.action"
+import { getCurrentUserId } from "@/actions/user.actions"
 
 const formSchema = z.object({
     name: z.string().min(1),
     description: z.string(),
     type: z.string(),
     brand: z.string().min(1),
-    imageUrl: z.string().min(1)
+    imageUrl: z.string().min(1),
+    amount: z.float32().min(1),
 });
 
 export default function AddProductForm() {
 
+    const userId = getCurrentUserId();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             console.log(values);
-            toast(
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                    <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-                </pre>
-            );
+            const res = await createPart({...values, userId: ""});
+            toast("A part has been created.");
         } catch (error) {
             console.error("Form submission error", error);
             toast.error("Failed to submit the form. Please try again.");
@@ -185,6 +185,26 @@ export default function AddProductForm() {
 
                                     type="text"
                                     {...field} />
+                            </FormControl>
+
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Amount</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder=""
+                                    type="number"
+                                    step="0.01" // Allows decimal input
+                                    {...field}
+                                    onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)} />
                             </FormControl>
 
                             <FormMessage />

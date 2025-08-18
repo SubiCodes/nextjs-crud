@@ -1,3 +1,5 @@
+"use server"
+
 import { prisma } from "@/lib/prisma";
 import { getCurrentUserId } from "./user.actions";
 import { Prisma } from "@/generated/prisma";
