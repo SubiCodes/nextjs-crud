@@ -23,10 +23,9 @@ export default function AddDialog() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Create a product</AlertDialogTitle>
           <AlertDialogDescription className="text-[15px]">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Fill in all the fields to post a new pc part.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AddProductForm/>
