@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { PcCase } from "lucide-react";
+import AddProductForm from "./AddProductForm";
 export default function AddDialog() {
   return (
     <AlertDialog>
@@ -28,10 +29,7 @@ export default function AddDialog() {
             account and remove your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
+        <AddProductForm/>
       </AlertDialogContent>
     </AlertDialog>
   );
